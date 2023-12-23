@@ -80,3 +80,8 @@ test_response = {
 
 results = pydecks.parse_response(test_response)
 print(results)
+
+print("----")
+
+card = pydecks.model_cache.get_id("806284a6-9ee0-11ee-b457-23a5fa5d2532")
+print(repr(card))

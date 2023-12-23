@@ -102,7 +102,7 @@ class _BaseModel:
 
     def __repr__(self):
         return f"""{self.__class__.__name__}: {self.id} {{
-    {''',
+{''',
 '''.join([f"    {prop}: {getattr(self, prop)}" for prop in self.properties()])}
 }}"""
 
