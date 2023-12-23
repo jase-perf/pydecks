@@ -1,4 +1,4 @@
-import datetime
+from typing import Optional, get_type_hints
 import sys
 import inspect
 import re
@@ -18,7 +18,7 @@ class _ModelCache:
         return cls._instance
 
     @classmethod
-    def get(cls, model_name, id, data=None):
+    def get(cls, model_name: str, id: str, data: Optional[dict] = None):
         if id in cls.__model_cache:
             if data:
                 cls.__model_cache[id].update(data)
@@ -33,11 +33,11 @@ class _ModelCache:
             return model
 
     @classmethod
-    def exists(cls, id):
+    def exists(cls, id: str):
         return id in cls.__model_cache
 
     @classmethod
-    def get_id(cls, id, default=None):
+    def get_id(cls, id: str, default=None):
         return cls.__model_cache.get(id, default)
 
     def __len__(self):
@@ -52,30 +52,39 @@ class _ModelCache:
     def __repr__(self):
         return str(self)
 
-    def __contains__(self, item):
-        return item in self.__model_cache
+    def __contains__(self, id: str) -> bool:
+        return id in self.__model_cache
 
 
 class _BaseModel:
-    def __init__(self, id, data=None):
+    def __init__(self, id: str, data: Optional[dict] = None):
         self.id = id
         if data:
             self.update(data)
 
-    def update(self, data):
+    def update(self, data: dict):
         for key, value in data.items():
+            key = key.split("(")[0]
             if key == "id":
                 setattr(self, key, value)
-            elif is_valid_uuid(value):
-                setattr(self, key, model_cache.get(value))
+            elif key.lower().endswith("id"):
+                if key[:-2] == self.__class__.__name__.lower():
+                    setattr(self, "id", value)
+                elif is_valid_uuid(value):
+                    model_name = get_classname_from_hint(self.__class__, key[:-2])
+                    setattr(self, key[:-2], model_cache.get(model_name, value))
             elif isinstance(value, list):
                 for item in value:
                     if is_valid_uuid(item):
-                        setattr(self, key, model_cache.get(item))
+                        model_name = get_classname_from_hint(self.__class__, key)
+                        setattr(self, key, model_cache.get(model_name, item))
                     elif isinstance(item, str):
                         setattr(self, key, optional_datetime(item))
                     else:
                         setattr(self, key, item)
+            elif is_valid_uuid(value):
+                model_name = get_classname_from_hint(self.__class__, key)
+                setattr(self, key, model_cache.get(model_name, value))
             elif isinstance(value, str):
                 setattr(self, key, optional_datetime(value))
             else:
@@ -107,6 +116,13 @@ def optional_datetime(string, fuzzy=False):
         return string
 
 
+def get_classname_from_hint(cls, key):
+    type_hint = get_type_hints(cls).get(key, "Unknown")
+    if hasattr(type_hint, "__origin__") and issubclass(type_hint.__origin__, list):
+        type_hint = type_hint.__args__[0]
+    return type_hint.__name__
+
+
 class Unknown(_BaseModel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -120,6 +136,7 @@ model_classes = {
     for model in inspect.getmembers(sys.modules[__name__], inspect.isclass)
     if model[1] not in [_BaseModel, Unknown]
 }
+print(model_classes.keys())
 
 # Create a single instance of the model cache for convenience:
 model_cache = _ModelCache()

@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-IMPORTS_STRING = """from typing import List
+IMPORTS_STRING = """from typing import List, Any, Optional
 import datetime
 
 from .models import _BaseModel
@@ -13,6 +13,8 @@ soup = BeautifulSoup(api_reference_html, "html.parser")
 
 
 def get_type(type_name: str):
+    if "[]" in type_name:
+        return f"List[{get_type(type_name.replace('[]', ''))}]"
     if type_name == "array":
         return "list"
     if type_name in {"bigint", "int", "number"}:
@@ -21,9 +23,11 @@ def get_type(type_name: str):
         return "bool"
     if type_name in {"date", "day"}:
         return "datetime.datetime"
-    if type_name in {"string", "unknown", "json"}:
+    if type_name in {"string", "json"}:
         return "str"
-    return type_name[0].upper() + type_name[1:]
+    if type_name == "unknown":
+        return "Any"
+    return f"'{type_name[0].upper() + type_name[1:]}'"
 
 
 def create_classes_string() -> str:
@@ -31,18 +35,18 @@ def create_classes_string() -> str:
     sections = soup.find_all("section")
     for section in sections:
         result += "\n\n"
-        section_id = section["id"]
+        section_id = section["id"].replace("_", "")
         subsections = section.findChildren("div", recursive=False)
-        result += f"class {section_id[0].upper()}{section_id[1:]}(BaseModel):\n"
-        result += f"    def __init__(self, **kwargs):\n"
+        result += f"class {section_id[0].upper()}{section_id[1:]}(_BaseModel):\n"
         for subsection in subsections:
             contents = subsection.findChildren("div", recursive=False)[0].findChildren(
                 "div", recursive=False
             )
             for content in contents:
                 name, value = content.children
-                result += f"        self.{name.text}: {get_type(value.text)}\n"
-        result += "\n        super().__init__(**kwargs)\n"
+                result += f"    {name.text}: {get_type(value.text)}\n"
+        result += "\n    def __init__(self, id: str, data: Optional[dict]):\n"
+        result += "        super().__init__(id, data)\n"
     return result
 
 

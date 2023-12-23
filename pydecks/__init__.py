@@ -1,5 +1,4 @@
 import os
-import base64
 import json
 from enum import Enum
 from typing import Dict
@@ -15,8 +14,12 @@ def parse_response(data: dict) -> Dict[str, models._BaseModel]:
     results = {}
     for model_name, model_datas in data.items():
         results[model_name] = {}
-        for id, data in model_datas.items():
-            results[model_name][id] = model_cache.get(model_name, id, data)
+        if model_name == "_root":
+            results[model_name] = model_cache.get(model_name, "_root", model_datas)
+        else:
+            for id, item_data in model_datas.items():
+                results[model_name][id] = model_cache.get(model_name, id, item_data)
+    return results
 
 
 BASE_URL = "https://api.codecks.io"
@@ -134,13 +137,6 @@ class Codedeck:
 #     },
 #     json=
 # )
-
-# Example usage
-query = Query("card").filter("title", "API", operator="contains")
-print(query.build())
-cd = Codedeck("argonautcreations")
-result = cd.get(query=query.build(), fields=["id", "title"])
-print(result)
 
 """markdown
 The Codecks API is heavily inspired by GraphQL. When Codecks was started, only the idea of GraphQL has been around, but no implementation. So Codecks developed its own JSON-based querying language.
