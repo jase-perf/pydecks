@@ -1,10 +1,21 @@
 from typing import List, Any, Optional
 import datetime
+from enum import Enum
 
 from .models import _BaseModel
 
 
 class Root(_BaseModel):
+    class Relations(Enum):
+        releases = ("releases", "Releases")
+        accountOnboardingSteps = ("accountOnboardingSteps", "AccountOnboardingSteps")
+        account = ("account", "Account")
+        loggedInUser = ("loggedInUser", "LoggedInUser")
+        cardsStatusHistory = ("cardsStatusHistory", "CardsStatusHistory")
+        cardsEffortHistory = ("cardsEffortHistory", "CardsEffortHistory")
+        cardsFinishedHistory = ("cardsFinishedHistory", "CardsFinishedHistory")
+        cardsTimeToFinished = ("cardsTimeToFinished", "CardsTimeToFinished")
+
     releases: List["Release"]
     accountOnboardingSteps: List["AccountOnboardingStep"]
     account: "Account"
@@ -19,6 +30,15 @@ class Root(_BaseModel):
 
 
 class AccountOnboardingStep(_BaseModel):
+    class Fields(Enum):
+        chapter = "chapter"
+        description = "description"
+        milestone = "milestone"
+        sortValue = "sortValue"
+        title = "title"
+        variants = "variants"
+        xp = "xp"
+
     chapter: str
     description: str
     milestone: str
@@ -32,6 +52,11 @@ class AccountOnboardingStep(_BaseModel):
 
 
 class AccountOnboarding(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        steps = "steps"
+        variants = "variants"
+
     account: "Account"
     steps: str
     variants: list
@@ -41,6 +66,14 @@ class AccountOnboarding(_BaseModel):
 
 
 class AccountRole(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        isBillingContact = "isBillingContact"
+        lastChangedAt = "lastChangedAt"
+        role = "role"
+        user = "user"
+
     account: "Account"
     createdAt: datetime.datetime
     isBillingContact: str
@@ -53,6 +86,12 @@ class AccountRole(_BaseModel):
 
 
 class AccountSetting(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        key = "key"
+        usesDefault = "usesDefault"
+        value = "value"
+
     account: "Account"
     key: str
     usesDefault: str
@@ -63,6 +102,12 @@ class AccountSetting(_BaseModel):
 
 
 class AccountUserAchievement(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        context = "context"
+        user = "user"
+        value = "value"
+
     account: "Account"
     context: str
     user: "User"
@@ -73,6 +118,11 @@ class AccountUserAchievement(_BaseModel):
 
 
 class AccountUserSetting(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        inboxDeck = "inboxDeck"
+        user = "user"
+
     account: "Account"
     inboxDeck: "Deck"
     user: "User"
@@ -82,6 +132,85 @@ class AccountUserSetting(_BaseModel):
 
 
 class Account(_BaseModel):
+    class Fields(Enum):
+        activeFeatureFlags = "activeFeatureFlags"
+        activeProjectCount = "activeProjectCount"
+        allowInheritHeroCover = "allowInheritHeroCover"
+        attachmentCoverMode = "attachmentCoverMode"
+        billingCity = "billingCity"
+        billingCountryCode = "billingCountryCode"
+        billingLine1 = "billingLine1"
+        billingLine2 = "billingLine2"
+        billingName = "billingName"
+        billingType = "billingType"
+        billingZip = "billingZip"
+        coupon = "coupon"
+        createdAt = "createdAt"
+        dependenciesEnabled = "dependenciesEnabled"
+        disabledAt = "disabledAt"
+        disabledBy = "disabledBy"
+        effortScale = "effortScale"
+        hideCompletedCardCountForDecks = "hideCompletedCardCountForDecks"
+        id = "id"
+        isDisabled = "isDisabled"
+        isLearning = "isLearning"
+        isNonProfit = "isNonProfit"
+        maxHandSlotCount = "maxHandSlotCount"
+        maxTimeTrackingSegmentMsDuration = "maxTimeTrackingSegmentMsDuration"
+        milestonesEnabled = "milestonesEnabled"
+        name = "name"
+        netGiftAmount = "netGiftAmount"
+        offeringTrial = "offeringTrial"
+        persona = "persona"
+        priorityLabels = "priorityLabels"
+        seats = "seats"
+        staffPermission = "staffPermission"
+        statusChangeDurations = "statusChangeDurations"
+        subdomain = "subdomain"
+        timeTrackingMode = "timeTrackingMode"
+        timeTrackingSwimLaneInfo = "timeTrackingSwimLaneInfo"
+        totalMediaByteUsage = "totalMediaByteUsage"
+        workdays = "workdays"
+        workflowMode = "workflowMode"
+
+    class Relations(Enum):
+        cards = ("cards", "Cards")
+        invoices = ("invoices", "Invoices")
+        cardPresets = ("cardPresets", "CardPresets")
+        attachments = ("attachments", "Attachments")
+        discordGuilds = ("discordGuilds", "DiscordGuilds")
+        timeTrackingSegments = ("timeTrackingSegments", "TimeTrackingSegments")
+        workflowItems = ("workflowItems", "WorkflowItems")
+        deckAssignments = ("deckAssignments", "DeckAssignments")
+        assigneeAssignments = ("assigneeAssignments", "AssigneeAssignments")
+        assigneeDeckAssignments = ("assigneeDeckAssignments", "AssigneeDeckAssignments")
+        wizards = ("wizards", "Wizards")
+        milestones = ("milestones", "Milestones")
+        handCards = ("handCards", "HandCards")
+        resolvables = ("resolvables", "Resolvables")
+        cardUpvotes = ("cardUpvotes", "CardUpvotes")
+        resolvableParticipants = ("resolvableParticipants", "ResolvableParticipants")
+        userReportSettings = ("userReportSettings", "UserReportSettings")
+        cardOrders = ("cardOrders", "CardOrders")
+        accountUserAchievements = ("accountUserAchievements", "AccountUserAchievements")
+        userInviteCodes = ("userInviteCodes", "UserInviteCodes")
+        decks = ("decks", "Decks")
+        queueEntries = ("queueEntries", "QueueEntries")
+        anyDecks = ("anyDecks", "AnyDecks")
+        projects = ("projects", "Projects")
+        archivedProjects = ("archivedProjects", "ArchivedProjects")
+        anyProjects = ("anyProjects", "AnyProjects")
+        onboardingDeck = ("onboardingDeck", "OnboardingDeck")
+        deckSubscriptions = ("deckSubscriptions", "DeckSubscriptions")
+        roles = ("roles", "Roles")
+        invitations = ("invitations", "Invitations")
+        githubIntegration = ("githubIntegration", "GithubIntegration")
+        slackIntegration = ("slackIntegration", "SlackIntegration")
+        affiliateCodes = ("affiliateCodes", "AffiliateCodes")
+        activities = ("activities", "Activities")
+        stripeAccountSync = ("stripeAccountSync", "StripeAccountSync")
+        accountOnboarding = ("accountOnboarding", "AccountOnboarding")
+
     activeFeatureFlags: str
     activeProjectCount: int
     allowInheritHeroCover: bool
@@ -163,6 +292,12 @@ class Account(_BaseModel):
 
 
 class ActiveTimeTracker(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        createdAt = "createdAt"
+        user = "user"
+
     account: "Account"
     card: "Card"
     createdAt: datetime.datetime
@@ -173,6 +308,18 @@ class ActiveTimeTracker(_BaseModel):
 
 
 class Activity(_BaseModel):
+    class Fields(Enum):
+        card = "card"
+        changer = "changer"
+        createdAt = "createdAt"
+        data = "data"
+        deck = "deck"
+        isRemovedFromDeckEntry = "isRemovedFromDeckEntry"
+        isRemovedFromMilestoneEntry = "isRemovedFromMilestoneEntry"
+        milestone = "milestone"
+        project = "project"
+        type = "type"
+
     card: "Card"
     changer: "User"
     createdAt: datetime.datetime
@@ -189,6 +336,15 @@ class Activity(_BaseModel):
 
 
 class AffiliateCodeStat(_BaseModel):
+    class Fields(Enum):
+        affiliateCode = "affiliateCode"
+        month = "month"
+        newVisitors = "newVisitors"
+        revenue = "revenue"
+        signups = "signups"
+        visits = "visits"
+        year = "year"
+
     affiliateCode: "AffiliateCode"
     month: int
     newVisitors: int
@@ -202,6 +358,23 @@ class AffiliateCodeStat(_BaseModel):
 
 
 class AffiliateCode(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        code = "code"
+        createdAt = "createdAt"
+        creator = "creator"
+        isDeleted = "isDeleted"
+        isDisabled = "isDisabled"
+        label = "label"
+        message = "message"
+        remainingRedemptions = "remainingRedemptions"
+        reward = "reward"
+        validUntil = "validUntil"
+        vanityUrl = "vanityUrl"
+
+    class Relations(Enum):
+        stats = ("stats", "Stats")
+
     account: "Account"
     code: str
     createdAt: datetime.datetime
@@ -221,6 +394,12 @@ class AffiliateCode(_BaseModel):
 
 
 class AssigneeAssignment(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        assignedBy = "assignedBy"
+        assignee = "assignee"
+        lastAssignedAt = "lastAssignedAt"
+
     account: "Account"
     assignedBy: "User"
     assignee: "User"
@@ -231,6 +410,13 @@ class AssigneeAssignment(_BaseModel):
 
 
 class AssigneeDeckAssignment(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        assignedBy = "assignedBy"
+        assignee = "assignee"
+        deck = "deck"
+        lastAssignedAt = "lastAssignedAt"
+
     account: "Account"
     assignedBy: "User"
     assignee: "User"
@@ -242,6 +428,15 @@ class AssigneeDeckAssignment(_BaseModel):
 
 
 class Attachment(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        content = "content"
+        createdAt = "createdAt"
+        creator = "creator"
+        file = "file"
+        title = "title"
+
     account: "Account"
     card: "Card"
     content: str
@@ -255,6 +450,16 @@ class Attachment(_BaseModel):
 
 
 class CardDiffNotification(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        asOwner = "asOwner"
+        card = "card"
+        changers = "changers"
+        changes = "changes"
+        createdAt = "createdAt"
+        lastUpdatedAt = "lastUpdatedAt"
+        user = "user"
+
     account: "Account"
     asOwner: bool
     card: "Card"
@@ -269,6 +474,14 @@ class CardDiffNotification(_BaseModel):
 
 
 class CardHistory(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        changer = "changer"
+        diff = "diff"
+        version = "version"
+        versionCreatedAt = "versionCreatedAt"
+
     account: "Account"
     card: "Card"
     changer: "User"
@@ -281,6 +494,12 @@ class CardHistory(_BaseModel):
 
 
 class CardOrderInDeck(_BaseModel):
+    class Fields(Enum):
+        card = "card"
+        changer = "changer"
+        deck = "deck"
+        sortIndex = "sortIndex"
+
     card: "Card"
     changer: "User"
     deck: "Deck"
@@ -291,6 +510,12 @@ class CardOrderInDeck(_BaseModel):
 
 
 class CardOrder(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        label = "label"
+        sortValue = "sortValue"
+
     account: "Account"
     card: "Card"
     label: str
@@ -301,6 +526,13 @@ class CardOrder(_BaseModel):
 
 
 class CardPreset(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        creator = "creator"
+        data = "data"
+        name = "name"
+
     account: "Account"
     createdAt: datetime.datetime
     creator: "User"
@@ -312,6 +544,11 @@ class CardPreset(_BaseModel):
 
 
 class CardSubscription(_BaseModel):
+    class Fields(Enum):
+        card = "card"
+        createdAt = "createdAt"
+        user = "user"
+
     card: "Card"
     createdAt: datetime.datetime
     user: "User"
@@ -321,6 +558,14 @@ class CardSubscription(_BaseModel):
 
 
 class CardUpvote(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        createdAt = "createdAt"
+        discordUserInfo = "discordUserInfo"
+        type = "type"
+        user = "user"
+
     account: "Account"
     card: "Card"
     createdAt: datetime.datetime
@@ -333,6 +578,56 @@ class CardUpvote(_BaseModel):
 
 
 class Card(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        accountSeq = "accountSeq"
+        assignee = "assignee"
+        checkboxInfo = "checkboxInfo"
+        checkboxStats = "checkboxStats"
+        content = "content"
+        coverFile = "coverFile"
+        createdAt = "createdAt"
+        creator = "creator"
+        deck = "deck"
+        discordGuild = "discordGuild"
+        dueDate = "dueDate"
+        effort = "effort"
+        embeds = "embeds"
+        hasBlockingDeps = "hasBlockingDeps"
+        isDoc = "isDoc"
+        isPublic = "isPublic"
+        lastUpdatedAt = "lastUpdatedAt"
+        legacyProject = "legacyProject"
+        legacyProjectSeq = "legacyProjectSeq"
+        masterTags = "masterTags"
+        mentionedUsers = "mentionedUsers"
+        meta = "meta"
+        milestone = "milestone"
+        parentCard = "parentCard"
+        priority = "priority"
+        sourceWorkflowItemId = "sourceWorkflowItemId"
+        status = "status"
+        tags = "tags"
+        title = "title"
+        version = "version"
+        visibility = "visibility"
+
+    class Relations(Enum):
+        resolvables = ("resolvables", "Resolvables")
+        handCards = ("handCards", "HandCards")
+        timeTrackingSegments = ("timeTrackingSegments", "TimeTrackingSegments")
+        cardSubscriptions = ("cardSubscriptions", "CardSubscriptions")
+        resolvableEntries = ("resolvableEntries", "ResolvableEntries")
+        attachments = ("attachments", "Attachments")
+        diffs = ("diffs", "Diffs")
+        totalTimeTrackingSums = ("totalTimeTrackingSums", "TotalTimeTrackingSums")
+        userTimeTrackingSums = ("userTimeTrackingSums", "UserTimeTrackingSums")
+        childCards = ("childCards", "ChildCards")
+        inDeps = ("inDeps", "InDeps")
+        outDeps = ("outDeps", "OutDeps")
+        cardReferences = ("cardReferences", "CardReferences")
+        upvotes = ("upvotes", "Upvotes")
+
     account: "Account"
     accountSeq: str
     assignee: "User"
@@ -385,6 +680,11 @@ class Card(_BaseModel):
 
 
 class CardsEffortHistory(_BaseModel):
+    class Fields(Enum):
+        cardCount = "cardCount"
+        date = "date"
+        effortSum = "effortSum"
+
     cardCount: int
     date: datetime.datetime
     effortSum: int
@@ -394,6 +694,12 @@ class CardsEffortHistory(_BaseModel):
 
 
 class CardsFinishedHistory(_BaseModel):
+    class Fields(Enum):
+        assignee = "assignee"
+        cardCount = "cardCount"
+        date = "date"
+        effortSum = "effortSum"
+
     assignee: "User"
     cardCount: int
     date: datetime.datetime
@@ -404,6 +710,11 @@ class CardsFinishedHistory(_BaseModel):
 
 
 class CardsStatusHistory(_BaseModel):
+    class Fields(Enum):
+        count = "count"
+        date = "date"
+        status = "status"
+
     count: int
     date: datetime.datetime
     status: str
@@ -413,6 +724,13 @@ class CardsStatusHistory(_BaseModel):
 
 
 class CardsTimeToFinished(_BaseModel):
+    class Fields(Enum):
+        assignee = "assignee"
+        card = "card"
+        doneAt = "doneAt"
+        effort = "effort"
+        startedAt = "startedAt"
+
     assignee: "User"
     card: "Card"
     doneAt: datetime.datetime
@@ -424,6 +742,11 @@ class CardsTimeToFinished(_BaseModel):
 
 
 class DailyDiscordGuildVoteMembership(_BaseModel):
+    class Fields(Enum):
+        discordGuild = "discordGuild"
+        membershipCount = "membershipCount"
+        t = "t"
+
     discordGuild: "DiscordGuild"
     membershipCount: int
     t: datetime.datetime
@@ -433,6 +756,11 @@ class DailyDiscordGuildVoteMembership(_BaseModel):
 
 
 class DailyPublicProjectMembership(_BaseModel):
+    class Fields(Enum):
+        membershipCount = "membershipCount"
+        project = "project"
+        t = "t"
+
     membershipCount: int
     project: "Project"
     t: datetime.datetime
@@ -442,6 +770,12 @@ class DailyPublicProjectMembership(_BaseModel):
 
 
 class PublicProjectVisit(_BaseModel):
+    class Fields(Enum):
+        project = "project"
+        t = "t"
+        topReferrers = "topReferrers"
+        visitCounts = "visitCounts"
+
     project: "Project"
     t: datetime.datetime
     topReferrers: str
@@ -452,6 +786,12 @@ class PublicProjectVisit(_BaseModel):
 
 
 class DeckAssignment(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        deck = "deck"
+        lastAssignedAt = "lastAssignedAt"
+        user = "user"
+
     account: "Account"
     deck: "Deck"
     lastAssignedAt: datetime.datetime
@@ -462,6 +802,12 @@ class DeckAssignment(_BaseModel):
 
 
 class DeckOrder(_BaseModel):
+    class Fields(Enum):
+        deck = "deck"
+        project = "project"
+        sortIndex = "sortIndex"
+        user = "user"
+
     deck: "Deck"
     project: "Project"
     sortIndex: str
@@ -472,6 +818,11 @@ class DeckOrder(_BaseModel):
 
 
 class DeckPublicOrder(_BaseModel):
+    class Fields(Enum):
+        deck = "deck"
+        project = "project"
+        sortIndex = "sortIndex"
+
     deck: "Deck"
     project: "Project"
     sortIndex: str
@@ -481,6 +832,10 @@ class DeckPublicOrder(_BaseModel):
 
 
 class DeckSubscription(_BaseModel):
+    class Fields(Enum):
+        deck = "deck"
+        user = "user"
+
     deck: "Deck"
     user: "User"
 
@@ -489,6 +844,33 @@ class DeckSubscription(_BaseModel):
 
 
 class Deck(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        accountSeq = "accountSeq"
+        content = "content"
+        coverColor = "coverColor"
+        coverFile = "coverFile"
+        createdAt = "createdAt"
+        creator = "creator"
+        defaultCard = "defaultCard"
+        defaultProjectTag = "defaultProjectTag"
+        handSyncEnabled = "handSyncEnabled"
+        isDeleted = "isDeleted"
+        isOnboardingDeck = "isOnboardingDeck"
+        manualOrderLabels = "manualOrderLabels"
+        milestone = "milestone"
+        preferredOrder = "preferredOrder"
+        project = "project"
+        stats = "stats"
+        stickyDefaultProjectTag = "stickyDefaultProjectTag"
+        title = "title"
+
+    class Relations(Enum):
+        cards = ("cards", "Cards")
+        workflowItems = ("workflowItems", "WorkflowItems")
+        cardOrderInDecks = ("cardOrderInDecks", "CardOrderInDecks")
+        activities = ("activities", "Activities")
+
     account: "Account"
     accountSeq: int
     content: str
@@ -518,6 +900,27 @@ class Deck(_BaseModel):
 
 
 class DiscordGuild(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        discordGuildId = "discordGuildId"
+        guildIconId = "guildIconId"
+        guildName = "guildName"
+        karmaRoleThresholds = "karmaRoleThresholds"
+        removeCommandEmoji = "removeCommandEmoji"
+        removeCommandEnabled = "removeCommandEnabled"
+        removeCommandRoleId = "removeCommandRoleId"
+        scope = "scope"
+
+    class Relations(Enum):
+        slashCommands = ("slashCommands", "SlashCommands")
+        projectNotifications = ("projectNotifications", "ProjectNotifications")
+        dailyDiscordGuildVoteMemberships = (
+            "dailyDiscordGuildVoteMemberships",
+            "DailyDiscordGuildVoteMemberships",
+        )
+        members = ("members", "Members")
+
     account: "Account"
     createdAt: datetime.datetime
     discordGuildId: str
@@ -538,6 +941,16 @@ class DiscordGuild(_BaseModel):
 
 
 class DiscordMember(_BaseModel):
+    class Fields(Enum):
+        avatar = "avatar"
+        createdAt = "createdAt"
+        deckyScore = "deckyScore"
+        discordGuild = "discordGuild"
+        discordUserId = "discordUserId"
+        discriminator = "discriminator"
+        name = "name"
+        nick = "nick"
+
     avatar: str
     createdAt: datetime.datetime
     deckyScore: int
@@ -552,6 +965,13 @@ class DiscordMember(_BaseModel):
 
 
 class DiscordProjectNotification(_BaseModel):
+    class Fields(Enum):
+        createdAt = "createdAt"
+        disabledTypes = "disabledTypes"
+        discordChannelId = "discordChannelId"
+        discordGuild = "discordGuild"
+        project = "project"
+
     createdAt: datetime.datetime
     disabledTypes: str
     discordChannelId: str
@@ -563,6 +983,21 @@ class DiscordProjectNotification(_BaseModel):
 
 
 class DiscordSlashCommand(_BaseModel):
+    class Fields(Enum):
+        autoAddRoleToThread = "autoAddRoleToThread"
+        channelId = "channelId"
+        deck = "deck"
+        description = "description"
+        discordGuild = "discordGuild"
+        karmaForCompletion = "karmaForCompletion"
+        leaderboard = "leaderboard"
+        name = "name"
+        permissions = "permissions"
+        reaction = "reaction"
+        reactionThreshold = "reactionThreshold"
+        statusMessages = "statusMessages"
+        statusTargetChannelId = "statusTargetChannelId"
+
     autoAddRoleToThread: str
     channelId: str
     deck: "Deck"
@@ -582,6 +1017,12 @@ class DiscordSlashCommand(_BaseModel):
 
 
 class DueCard(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        createdAt = "createdAt"
+        user = "user"
+
     account: "Account"
     card: "Card"
     createdAt: datetime.datetime
@@ -592,6 +1033,19 @@ class DueCard(_BaseModel):
 
 
 class File(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        deletedAt = "deletedAt"
+        deletedBy = "deletedBy"
+        isDeleted = "isDeleted"
+        meta = "meta"
+        name = "name"
+        selfHosted = "selfHosted"
+        size = "size"
+        uploader = "uploader"
+        url = "url"
+
     account: "Account"
     createdAt: datetime.datetime
     deletedAt: datetime.datetime
@@ -609,6 +1063,12 @@ class File(_BaseModel):
 
 
 class HandCard(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        sortIndex = "sortIndex"
+        user = "user"
+
     account: "Account"
     card: "Card"
     sortIndex: int
@@ -619,6 +1079,16 @@ class HandCard(_BaseModel):
 
 
 class Integration(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        creator = "creator"
+        disabled = "disabled"
+        type = "type"
+        user = "user"
+        userData = "userData"
+        version = "version"
+
     account: "Account"
     createdAt: datetime.datetime
     creator: "User"
@@ -633,6 +1103,16 @@ class Integration(_BaseModel):
 
 
 class Invoice(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        chargeData = "chargeData"
+        charged = "charged"
+        createdAt = "createdAt"
+        invoiceNumber = "invoiceNumber"
+        subtotal = "subtotal"
+        total = "total"
+        url = "url"
+
     account: "Account"
     chargeData: str
     charged: int
@@ -647,6 +1127,12 @@ class Invoice(_BaseModel):
 
 
 class LastSeenCardUpvote(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        lastSeenAt = "lastSeenAt"
+        user = "user"
+
     account: "Account"
     createdAt: datetime.datetime
     lastSeenAt: datetime.datetime
@@ -657,6 +1143,10 @@ class LastSeenCardUpvote(_BaseModel):
 
 
 class MilestoneProgress(_BaseModel):
+    class Fields(Enum):
+        milestone = "milestone"
+        progress = "progress"
+
     milestone: "Milestone"
     progress: str
 
@@ -665,6 +1155,11 @@ class MilestoneProgress(_BaseModel):
 
 
 class MilestoneProject(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        milestone = "milestone"
+        project = "project"
+
     account: "Account"
     milestone: "Milestone"
     project: "Project"
@@ -674,6 +1169,27 @@ class MilestoneProject(_BaseModel):
 
 
 class Milestone(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        accountSeq = "accountSeq"
+        color = "color"
+        createdAt = "createdAt"
+        creator = "creator"
+        date = "date"
+        description = "description"
+        handSyncEnabled = "handSyncEnabled"
+        isDeleted = "isDeleted"
+        isGlobal = "isGlobal"
+        manualOrderLabels = "manualOrderLabels"
+        name = "name"
+        stats = "stats"
+
+    class Relations(Enum):
+        milestoneProjects = ("milestoneProjects", "MilestoneProjects")
+        cards = ("cards", "Cards")
+        activities = ("activities", "Activities")
+        progress = ("progress", "Progress")
+
     account: "Account"
     accountSeq: int
     color: str
@@ -697,6 +1213,12 @@ class Milestone(_BaseModel):
 
 
 class ProjectOrder(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        project = "project"
+        sortIndex = "sortIndex"
+        user = "user"
+
     account: "Account"
     project: "Project"
     sortIndex: str
@@ -707,6 +1229,11 @@ class ProjectOrder(_BaseModel):
 
 
 class ProjectSelection(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        project = "project"
+        user = "user"
+
     account: "Account"
     project: "Project"
     user: "User"
@@ -716,6 +1243,13 @@ class ProjectSelection(_BaseModel):
 
 
 class ProjectTag(_BaseModel):
+    class Fields(Enum):
+        color = "color"
+        createdAt = "createdAt"
+        emoji = "emoji"
+        project = "project"
+        tag = "tag"
+
     color: str
     createdAt: datetime.datetime
     emoji: str
@@ -727,6 +1261,11 @@ class ProjectTag(_BaseModel):
 
 
 class ProjectUserSetting(_BaseModel):
+    class Fields(Enum):
+        project = "project"
+        receivePublicProjectDigest = "receivePublicProjectDigest"
+        user = "user"
+
     project: "Project"
     receivePublicProjectDigest: bool
     user: "User"
@@ -736,6 +1275,12 @@ class ProjectUserSetting(_BaseModel):
 
 
 class ProjectUser(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        project = "project"
+        projectRole = "projectRole"
+        user = "user"
+
     account: "Account"
     project: "Project"
     projectRole: str
@@ -746,6 +1291,51 @@ class ProjectUser(_BaseModel):
 
 
 class Project(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        accountSeq = "accountSeq"
+        allowUpvotes = "allowUpvotes"
+        commentsArePublic = "commentsArePublic"
+        coverFile = "coverFile"
+        createdAt = "createdAt"
+        defaultUserAccess = "defaultUserAccess"
+        id = "id"
+        isPublic = "isPublic"
+        markerColor = "markerColor"
+        name = "name"
+        publicBackgroundColor = "publicBackgroundColor"
+        publicBackgroundImage = "publicBackgroundImage"
+        publicBannerFile = "publicBannerFile"
+        publicHeading = "publicHeading"
+        publicIsExplicit = "publicIsExplicit"
+        publicLayoutVersion = "publicLayoutVersion"
+        publicMessage = "publicMessage"
+        publicPath = "publicPath"
+        publicRegistryAgreement = "publicRegistryAgreement"
+        publicTileFile = "publicTileFile"
+        visibility = "visibility"
+
+    class Relations(Enum):
+        decks = ("decks", "Decks")
+        deckPublicOrders = ("deckPublicOrders", "DeckPublicOrders")
+        milestoneProjects = ("milestoneProjects", "MilestoneProjects")
+        publicProjectVisits = ("publicProjectVisits", "PublicProjectVisits")
+        dailyPublicProjectMembership = (
+            "dailyPublicProjectMembership",
+            "DailyPublicProjectMembership",
+        )
+        publicProjectMemberships = (
+            "publicProjectMemberships",
+            "PublicProjectMemberships",
+        )
+        cardUpvotes = ("cardUpvotes", "CardUpvotes")
+        cards = ("cards", "Cards")
+        tags = ("tags", "Tags")
+        activities = ("activities", "Activities")
+        explicitProjectUsers = ("explicitProjectUsers", "ExplicitProjectUsers")
+        access = ("access", "Access")
+        publicProjectInfo = ("publicProjectInfo", "PublicProjectInfo")
+
     account: "Account"
     accountSeq: int
     allowUpvotes: bool
@@ -787,6 +1377,15 @@ class Project(_BaseModel):
 
 
 class PublicProjectInfo(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        activities7d = "activities7d"
+        cardCount = "cardCount"
+        cardDoneStreak = "cardDoneStreak"
+        lastActivityAt = "lastActivityAt"
+        project = "project"
+        visits7d = "visits7d"
+
     account: "Account"
     activities7d: str
     cardCount: str
@@ -800,6 +1399,12 @@ class PublicProjectInfo(_BaseModel):
 
 
 class PublicProjectMembership(_BaseModel):
+    class Fields(Enum):
+        createdAt = "createdAt"
+        digestFrequencyInDays = "digestFrequencyInDays"
+        project = "project"
+        user = "user"
+
     createdAt: datetime.datetime
     digestFrequencyInDays: int
     project: "Project"
@@ -810,6 +1415,15 @@ class PublicProjectMembership(_BaseModel):
 
 
 class QueueEntry(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        cardDoneAt = "cardDoneAt"
+        createdAt = "createdAt"
+        isCleared = "isCleared"
+        sortIndex = "sortIndex"
+        user = "user"
+
     account: "Account"
     card: "Card"
     cardDoneAt: datetime.datetime
@@ -823,6 +1437,12 @@ class QueueEntry(_BaseModel):
 
 
 class QueueSelection(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        queueUser = "queueUser"
+        sortIndex = "sortIndex"
+        user = "user"
+
     account: "Account"
     queueUser: "User"
     sortIndex: int
@@ -833,6 +1453,13 @@ class QueueSelection(_BaseModel):
 
 
 class Release(_BaseModel):
+    class Fields(Enum):
+        content = "content"
+        createdAt = "createdAt"
+        isLive = "isLive"
+        title = "title"
+        version = "version"
+
     content: str
     createdAt: datetime.datetime
     isLive: str
@@ -844,6 +1471,13 @@ class Release(_BaseModel):
 
 
 class ResolvableEntryHistory(_BaseModel):
+    class Fields(Enum):
+        author = "author"
+        content = "content"
+        lastChangedAt = "lastChangedAt"
+        resolvable = "resolvable"
+        version = "version"
+
     author: "User"
     content: str
     lastChangedAt: datetime.datetime
@@ -855,6 +1489,18 @@ class ResolvableEntryHistory(_BaseModel):
 
 
 class ResolvableEntry(_BaseModel):
+    class Fields(Enum):
+        author = "author"
+        content = "content"
+        createdAt = "createdAt"
+        lastChangedAt = "lastChangedAt"
+        meta = "meta"
+        resolvable = "resolvable"
+        version = "version"
+
+    class Relations(Enum):
+        histories = ("histories", "Histories")
+
     author: "User"
     content: str
     createdAt: datetime.datetime
@@ -869,6 +1515,21 @@ class ResolvableEntry(_BaseModel):
 
 
 class ResolvableNotification(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        isLastParticipant = "isLastParticipant"
+        isParticipating = "isParticipating"
+        isSnoozing = "isSnoozing"
+        lastUpdatedAt = "lastUpdatedAt"
+        latestEntry = "latestEntry"
+        latestSeenEntry = "latestSeenEntry"
+        resolvable = "resolvable"
+        snoozeUntil = "snoozeUntil"
+        unseenAuthors = "unseenAuthors"
+        unseenEntryCount = "unseenEntryCount"
+        user = "user"
+
     account: "Account"
     createdAt: datetime.datetime
     isLastParticipant: bool
@@ -888,6 +1549,15 @@ class ResolvableNotification(_BaseModel):
 
 
 class ResolvableParticipantHistory(_BaseModel):
+    class Fields(Enum):
+        addedBy = "addedBy"
+        done = "done"
+        firstJoinedAt = "firstJoinedAt"
+        lastChangedAt = "lastChangedAt"
+        resolvable = "resolvable"
+        user = "user"
+        version = "version"
+
     addedBy: "User"
     done: bool
     firstJoinedAt: str
@@ -901,6 +1571,16 @@ class ResolvableParticipantHistory(_BaseModel):
 
 
 class ResolvableParticipant(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        addedBy = "addedBy"
+        discordUserId = "discordUserId"
+        done = "done"
+        firstJoinedAt = "firstJoinedAt"
+        lastChangedAt = "lastChangedAt"
+        resolvable = "resolvable"
+        user = "user"
+
     account: "Account"
     addedBy: "User"
     discordUserId: str
@@ -915,6 +1595,23 @@ class ResolvableParticipant(_BaseModel):
 
 
 class Resolvable(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        card = "card"
+        closedAt = "closedAt"
+        closedBy = "closedBy"
+        context = "context"
+        contextAsPrio = "contextAsPrio"
+        createdAt = "createdAt"
+        creator = "creator"
+        isClosed = "isClosed"
+        isPublic = "isPublic"
+
+    class Relations(Enum):
+        participants = ("participants", "Participants")
+        participantHistories = ("participantHistories", "ParticipantHistories")
+        entries = ("entries", "Entries")
+
     account: "Account"
     card: "Card"
     closedAt: datetime.datetime
@@ -934,6 +1631,12 @@ class Resolvable(_BaseModel):
 
 
 class SavedSearch(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        forceOr = "forceOr"
+        owner = "owner"
+        tokens = "tokens"
+
     account: "Account"
     forceOr: bool
     owner: "User"
@@ -944,6 +1647,25 @@ class SavedSearch(_BaseModel):
 
 
 class StripeAccountSync(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        billingCycleEnd = "billingCycleEnd"
+        billingCycleStart = "billingCycleStart"
+        centsPerSeat = "centsPerSeat"
+        euVatIdData = "euVatIdData"
+        grossActualBalance = "grossActualBalance"
+        grossBonusBalance = "grossBonusBalance"
+        hasBeenCancelledAt = "hasBeenCancelledAt"
+        netGiftBalance = "netGiftBalance"
+        paymentMethod = "paymentMethod"
+        pendingPlanType = "pendingPlanType"
+        planName = "planName"
+        planType = "planType"
+        repeatingCoupon = "repeatingCoupon"
+        status = "status"
+        vatCountryCode = "vatCountryCode"
+        vatTaxPercentage = "vatTaxPercentage"
+
     account: "Account"
     billingCycleEnd: datetime.datetime
     billingCycleStart: datetime.datetime
@@ -967,6 +1689,16 @@ class StripeAccountSync(_BaseModel):
 
 
 class TimeTrackingSegment(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        addedManually = "addedManually"
+        card = "card"
+        createdAt = "createdAt"
+        finishedAt = "finishedAt"
+        modifyDurationMsBy = "modifyDurationMsBy"
+        startedAt = "startedAt"
+        user = "user"
+
     account: "Account"
     addedManually: bool
     card: "Card"
@@ -981,6 +1713,13 @@ class TimeTrackingSegment(_BaseModel):
 
 
 class TimeTrackingSum(_BaseModel):
+    class Fields(Enum):
+        card = "card"
+        runningModifyDurationMsBy = "runningModifyDurationMsBy"
+        runningStartedAt = "runningStartedAt"
+        sumMs = "sumMs"
+        user = "user"
+
     card: "Card"
     runningModifyDurationMsBy: int
     runningStartedAt: datetime.datetime
@@ -992,6 +1731,12 @@ class TimeTrackingSum(_BaseModel):
 
 
 class UserDismissedHint(_BaseModel):
+    class Fields(Enum):
+        createdAt = "createdAt"
+        hintKey = "hintKey"
+        returnAt = "returnAt"
+        user = "user"
+
     createdAt: datetime.datetime
     hintKey: str
     returnAt: datetime.datetime
@@ -1002,6 +1747,13 @@ class UserDismissedHint(_BaseModel):
 
 
 class UserEmail(_BaseModel):
+    class Fields(Enum):
+        createdAt = "createdAt"
+        email = "email"
+        isPrimary = "isPrimary"
+        isVerified = "isVerified"
+        user = "user"
+
     createdAt: datetime.datetime
     email: str
     isPrimary: str
@@ -1013,6 +1765,14 @@ class UserEmail(_BaseModel):
 
 
 class UserInvitation(_BaseModel):
+    class Fields(Enum):
+        accessToProjectIds = "accessToProjectIds"
+        account = "account"
+        createdAt = "createdAt"
+        email = "email"
+        inviter = "inviter"
+        role = "role"
+
     accessToProjectIds: list
     account: "Account"
     createdAt: datetime.datetime
@@ -1025,6 +1785,17 @@ class UserInvitation(_BaseModel):
 
 
 class UserInviteCode(_BaseModel):
+    class Fields(Enum):
+        accessToProjectIds = "accessToProjectIds"
+        account = "account"
+        createdAt = "createdAt"
+        creator = "creator"
+        isActive = "isActive"
+        role = "role"
+        token = "token"
+        useCount = "useCount"
+        validUntil = "validUntil"
+
     accessToProjectIds: list
     account: "Account"
     createdAt: datetime.datetime
@@ -1040,6 +1811,10 @@ class UserInviteCode(_BaseModel):
 
 
 class UserOnboarding(_BaseModel):
+    class Fields(Enum):
+        steps = "steps"
+        user = "user"
+
     steps: str
     user: "User"
 
@@ -1048,6 +1823,12 @@ class UserOnboarding(_BaseModel):
 
 
 class UserProjectAccess(_BaseModel):
+    class Fields(Enum):
+        project = "project"
+        projectRole = "projectRole"
+        role = "role"
+        user = "user"
+
     project: "Project"
     projectRole: str
     role: str
@@ -1058,6 +1839,12 @@ class UserProjectAccess(_BaseModel):
 
 
 class UserTag(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        tag = "tag"
+        user = "user"
+
     account: "Account"
     createdAt: datetime.datetime
     tag: str
@@ -1068,6 +1855,55 @@ class UserTag(_BaseModel):
 
 
 class User(_BaseModel):
+    class Fields(Enum):
+        autoMeFilterCardLimit = "autoMeFilterCardLimit"
+        cdxRole = "cdxRole"
+        createdAt = "createdAt"
+        disableAnimations = "disableAnimations"
+        disableMovingImages = "disableMovingImages"
+        disableSpellcheck = "disableSpellcheck"
+        fullName = "fullName"
+        hasPassword = "hasPassword"
+        isIntegration = "isIntegration"
+        lastSeenRelease = "lastSeenRelease"
+        name = "name"
+        profileImage = "profileImage"
+        showCardIdInTimer = "showCardIdInTimer"
+        statusColorPalette = "statusColorPalette"
+        timezone = "timezone"
+        wantsConvoDigestMail = "wantsConvoDigestMail"
+        wantsDailyDigestMail = "wantsDailyDigestMail"
+        wantsNewsletter = "wantsNewsletter"
+
+    class Relations(Enum):
+        deckOrders = ("deckOrders", "DeckOrders")
+        projectOrders = ("projectOrders", "ProjectOrders")
+        projectSelections = ("projectSelections", "ProjectSelections")
+        queueSelections = ("queueSelections", "QueueSelections")
+        accountRoles = ("accountRoles", "AccountRoles")
+        cardDiffNotifications = ("cardDiffNotifications", "CardDiffNotifications")
+        resolvableNotifications = ("resolvableNotifications", "ResolvableNotifications")
+        publicProjectMembership = ("publicProjectMembership", "PublicProjectMembership")
+        lastSeenCardUpvotes = ("lastSeenCardUpvotes", "LastSeenCardUpvotes")
+        dueCards = ("dueCards", "DueCards")
+        savedSearches = ("savedSearches", "SavedSearches")
+        activities = ("activities", "Activities")
+        emails = ("emails", "Emails")
+        tags = ("tags", "Tags")
+        unverifiedEmails = ("unverifiedEmails", "UnverifiedEmails")
+        primaryEmail = ("primaryEmail", "PrimaryEmail")
+        pinnedMilestone = ("pinnedMilestone", "PinnedMilestone")
+        explicitProjectAccess = ("explicitProjectAccess", "ExplicitProjectAccess")
+        withProjectAccess = ("withProjectAccess", "WithProjectAccess")
+        projectSettings = ("projectSettings", "ProjectSettings")
+        accountSettings = ("accountSettings", "AccountSettings")
+        dismissedHints = ("dismissedHints", "DismissedHints")
+        slackIntegrations = ("slackIntegrations", "SlackIntegrations")
+        activeTimeTracker = ("activeTimeTracker", "ActiveTimeTracker")
+        participations = ("participations", "Participations")
+        upvotes = ("upvotes", "Upvotes")
+        userOnboarding = ("userOnboarding", "UserOnboarding")
+
     autoMeFilterCardLimit: int
     cdxRole: str
     createdAt: datetime.datetime
@@ -1119,6 +1955,13 @@ class User(_BaseModel):
 
 
 class UserReportEmail(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        email = "email"
+        enabled = "enabled"
+        userReportSetting = "userReportSetting"
+
     account: "Account"
     createdAt: datetime.datetime
     email: str
@@ -1130,6 +1973,18 @@ class UserReportEmail(_BaseModel):
 
 
 class UserReportSetting(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        deckMapping = "deckMapping"
+        fileSizeBytesLimit = "fileSizeBytesLimit"
+        id = "id"
+        name = "name"
+        prioMapping = "prioMapping"
+
+    class Relations(Enum):
+        reportTokens = ("reportTokens", "ReportTokens")
+
     account: "Account"
     createdAt: datetime.datetime
     deckMapping: str
@@ -1144,6 +1999,13 @@ class UserReportSetting(_BaseModel):
 
 
 class UserReportToken(_BaseModel):
+    class Fields(Enum):
+        createdAt = "createdAt"
+        enabled = "enabled"
+        label = "label"
+        reportCount = "reportCount"
+        userReportSetting = "userReportSetting"
+
     createdAt: datetime.datetime
     enabled: str
     label: str
@@ -1155,6 +2017,14 @@ class UserReportToken(_BaseModel):
 
 
 class Wizard(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        createdAt = "createdAt"
+        currentStep = "currentStep"
+        data = "data"
+        finishedAt = "finishedAt"
+        name = "name"
+
     account: "Account"
     createdAt: datetime.datetime
     currentStep: str
@@ -1167,6 +2037,13 @@ class Wizard(_BaseModel):
 
 
 class WorkflowItemHistory(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        changer = "changer"
+        diff = "diff"
+        version = "version"
+        versionCreatedAt = "versionCreatedAt"
+
     account: "Account"
     changer: "User"
     diff: str
@@ -1178,6 +2055,33 @@ class WorkflowItemHistory(_BaseModel):
 
 
 class WorkflowItem(_BaseModel):
+    class Fields(Enum):
+        account = "account"
+        accountSeq = "accountSeq"
+        assignee = "assignee"
+        checkboxInfo = "checkboxInfo"
+        checkboxStats = "checkboxStats"
+        content = "content"
+        createdAt = "createdAt"
+        creator = "creator"
+        deck = "deck"
+        effort = "effort"
+        lastUpdatedAt = "lastUpdatedAt"
+        masterTags = "masterTags"
+        mentionedUsers = "mentionedUsers"
+        priority = "priority"
+        sortOrder = "sortOrder"
+        tags = "tags"
+        targetDeck = "targetDeck"
+        title = "title"
+        version = "version"
+        visibility = "visibility"
+
+    class Relations(Enum):
+        diffs = ("diffs", "Diffs")
+        inDeps = ("inDeps", "InDeps")
+        outDeps = ("outDeps", "OutDeps")
+
     account: "Account"
     accountSeq: str
     assignee: "User"
