@@ -6228,3 +6228,4 @@ class WorkflowItem(_BaseModel):
 
     def __init__(self, id: str, data: Optional[dict]):
         super().__init__(id, data)
+

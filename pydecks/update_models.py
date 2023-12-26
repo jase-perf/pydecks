@@ -60,7 +60,6 @@ def create_classes_string() -> str:
 
 '''
                 second_part += f"    {name.text}: {get_type(value.text)}\n"
-            first_part += "\n"
         this_section += first_part + second_part
         this_section += "\n    def __init__(self, id: str, data: Optional[dict]):\n"
         this_section += "        super().__init__(id, data)\n"
