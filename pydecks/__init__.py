@@ -8,38 +8,10 @@ import requests
 from .models import _BaseModel, model_classes, model_cache
 from .models import *
 from .utils import unpascalize
+from .enums import Operator
 
 
 BASE_URL = "https://api.codecks.io"
-
-
-class Operator(Enum):
-    EQ = ("eq", "value | null")
-    NEQ = ("neq", "value | null")
-    IN = ("in", "array")
-    NOT_IN = ("notIn", "array")
-    GT = ("gt", "ordinal value")
-    GTE = ("gte", "ordinal value")
-    LT = ("lt", "ordinal value")
-    LTE = ("lte", "ordinal value")
-    IN_OR_NULL = ("inOrNull", "array")
-    CONTAINS = ("contains", "string (if field is of type string)")
-    HAS = ("has", "value (if field is of type array)")
-    OVERLAPS = ("overlaps", "array (if field is of type array)")
-    SEARCH = (
-        "search",
-        "string if field is searchable (so far only available for the content field within the card model)",
-    )
-
-    def __init__(self, operator, description):
-        self.operator = operator
-        self.description = description
-
-    def __str__(self):
-        return self.operator
-
-    def __repr__(self):
-        return self.operator
 
 
 class Query:

@@ -4,17 +4,9 @@ import requests
 
 IMPORTS_STRING = """from typing import List, Any, Optional
 import datetime
-from enum import Enum
 
 from .models import _BaseModel
-
-
-class FieldEnum(Enum):
-    def __str__(self):
-        return self.value
-
-    def __repr__(self):
-        return self.value
+from .enums import _PrintableEnum
 """
 CODECKS_API_REFERENCE_URL = "https://manual.codecks.io/api-reference/"
 api_reference_html = requests.get(CODECKS_API_REFERENCE_URL).text
@@ -51,13 +43,22 @@ def create_classes_string() -> str:
         second_part = ""
         for subsection in subsections:
             subsection_title = subsection.find("h3").text
-            first_part += f"    class {subsection_title}(FieldEnum):\n"
+            first_part += f"    class {subsection_title}(_PrintableEnum):\n"
             contents = subsection.findChildren("div", recursive=False)[0].findChildren(
                 "div", recursive=False
             )
             for content in contents:
                 name, value = content.children
-                first_part += f'        {name.text} = "{(name.text)}"\n'
+                isList = "[]" in value.text
+                rel_type = get_type(value.text.replace("[]", "")).replace('"', "")
+                first_part += f'''        class {name.text}:
+            """
+            Type: {rel_type}{"[]" if isList else ""}
+            """
+
+            value = "{name.text}"
+
+'''
                 second_part += f"    {name.text}: {get_type(value.text)}\n"
             first_part += "\n"
         this_section += first_part + second_part
