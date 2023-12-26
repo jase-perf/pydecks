@@ -4,6 +4,8 @@ import inspect
 import re
 from dateutil.parser import parse
 from weakref import WeakValueDictionary
+from abc import ABC
+from enum import Enum
 
 from .utils import is_valid_uuid, pascalize
 
@@ -56,7 +58,13 @@ class _ModelCache:
         return id in self.__model_cache
 
 
-class _BaseModel:
+class _BaseModel(ABC):
+    class Fields(Enum):
+        pass
+
+    class Relations(Enum):
+        pass
+
     def __init__(self, id: str, data: Optional[dict] = None):
         self.id = id
         if data:
@@ -136,7 +144,6 @@ model_classes = {
     for model in inspect.getmembers(sys.modules[__name__], inspect.isclass)
     if model[1] not in [_BaseModel, Unknown]
 }
-print(model_classes.keys())
 
 # Create a single instance of the model cache for convenience:
 model_cache = _ModelCache()

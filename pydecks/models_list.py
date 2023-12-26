@@ -5,16 +5,24 @@ from enum import Enum
 from .models import _BaseModel
 
 
+class FieldEnum(Enum):
+    def __str__(self):
+        return self.value
+
+    def __repr__(self):
+        return self.value
+
+
 class Root(_BaseModel):
-    class Relations(Enum):
-        releases = ("releases", "Releases")
-        accountOnboardingSteps = ("accountOnboardingSteps", "AccountOnboardingSteps")
-        account = ("account", "Account")
-        loggedInUser = ("loggedInUser", "LoggedInUser")
-        cardsStatusHistory = ("cardsStatusHistory", "CardsStatusHistory")
-        cardsEffortHistory = ("cardsEffortHistory", "CardsEffortHistory")
-        cardsFinishedHistory = ("cardsFinishedHistory", "CardsFinishedHistory")
-        cardsTimeToFinished = ("cardsTimeToFinished", "CardsTimeToFinished")
+    class Relations(FieldEnum):
+        releases = "releases"
+        accountOnboardingSteps = "accountOnboardingSteps"
+        account = "account"
+        loggedInUser = "loggedInUser"
+        cardsStatusHistory = "cardsStatusHistory"
+        cardsEffortHistory = "cardsEffortHistory"
+        cardsFinishedHistory = "cardsFinishedHistory"
+        cardsTimeToFinished = "cardsTimeToFinished"
 
     releases: List["Release"]
     accountOnboardingSteps: List["AccountOnboardingStep"]
@@ -30,7 +38,7 @@ class Root(_BaseModel):
 
 
 class AccountOnboardingStep(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         chapter = "chapter"
         description = "description"
         milestone = "milestone"
@@ -52,7 +60,7 @@ class AccountOnboardingStep(_BaseModel):
 
 
 class AccountOnboarding(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         steps = "steps"
         variants = "variants"
@@ -66,7 +74,7 @@ class AccountOnboarding(_BaseModel):
 
 
 class AccountRole(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         isBillingContact = "isBillingContact"
@@ -86,7 +94,7 @@ class AccountRole(_BaseModel):
 
 
 class AccountSetting(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         key = "key"
         usesDefault = "usesDefault"
@@ -102,7 +110,7 @@ class AccountSetting(_BaseModel):
 
 
 class AccountUserAchievement(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         context = "context"
         user = "user"
@@ -118,7 +126,7 @@ class AccountUserAchievement(_BaseModel):
 
 
 class AccountUserSetting(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         inboxDeck = "inboxDeck"
         user = "user"
@@ -132,7 +140,7 @@ class AccountUserSetting(_BaseModel):
 
 
 class Account(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         activeFeatureFlags = "activeFeatureFlags"
         activeProjectCount = "activeProjectCount"
         allowInheritHeroCover = "allowInheritHeroCover"
@@ -173,43 +181,43 @@ class Account(_BaseModel):
         workdays = "workdays"
         workflowMode = "workflowMode"
 
-    class Relations(Enum):
-        cards = ("cards", "Cards")
-        invoices = ("invoices", "Invoices")
-        cardPresets = ("cardPresets", "CardPresets")
-        attachments = ("attachments", "Attachments")
-        discordGuilds = ("discordGuilds", "DiscordGuilds")
-        timeTrackingSegments = ("timeTrackingSegments", "TimeTrackingSegments")
-        workflowItems = ("workflowItems", "WorkflowItems")
-        deckAssignments = ("deckAssignments", "DeckAssignments")
-        assigneeAssignments = ("assigneeAssignments", "AssigneeAssignments")
-        assigneeDeckAssignments = ("assigneeDeckAssignments", "AssigneeDeckAssignments")
-        wizards = ("wizards", "Wizards")
-        milestones = ("milestones", "Milestones")
-        handCards = ("handCards", "HandCards")
-        resolvables = ("resolvables", "Resolvables")
-        cardUpvotes = ("cardUpvotes", "CardUpvotes")
-        resolvableParticipants = ("resolvableParticipants", "ResolvableParticipants")
-        userReportSettings = ("userReportSettings", "UserReportSettings")
-        cardOrders = ("cardOrders", "CardOrders")
-        accountUserAchievements = ("accountUserAchievements", "AccountUserAchievements")
-        userInviteCodes = ("userInviteCodes", "UserInviteCodes")
-        decks = ("decks", "Decks")
-        queueEntries = ("queueEntries", "QueueEntries")
-        anyDecks = ("anyDecks", "AnyDecks")
-        projects = ("projects", "Projects")
-        archivedProjects = ("archivedProjects", "ArchivedProjects")
-        anyProjects = ("anyProjects", "AnyProjects")
-        onboardingDeck = ("onboardingDeck", "OnboardingDeck")
-        deckSubscriptions = ("deckSubscriptions", "DeckSubscriptions")
-        roles = ("roles", "Roles")
-        invitations = ("invitations", "Invitations")
-        githubIntegration = ("githubIntegration", "GithubIntegration")
-        slackIntegration = ("slackIntegration", "SlackIntegration")
-        affiliateCodes = ("affiliateCodes", "AffiliateCodes")
-        activities = ("activities", "Activities")
-        stripeAccountSync = ("stripeAccountSync", "StripeAccountSync")
-        accountOnboarding = ("accountOnboarding", "AccountOnboarding")
+    class Relations(FieldEnum):
+        cards = "cards"
+        invoices = "invoices"
+        cardPresets = "cardPresets"
+        attachments = "attachments"
+        discordGuilds = "discordGuilds"
+        timeTrackingSegments = "timeTrackingSegments"
+        workflowItems = "workflowItems"
+        deckAssignments = "deckAssignments"
+        assigneeAssignments = "assigneeAssignments"
+        assigneeDeckAssignments = "assigneeDeckAssignments"
+        wizards = "wizards"
+        milestones = "milestones"
+        handCards = "handCards"
+        resolvables = "resolvables"
+        cardUpvotes = "cardUpvotes"
+        resolvableParticipants = "resolvableParticipants"
+        userReportSettings = "userReportSettings"
+        cardOrders = "cardOrders"
+        accountUserAchievements = "accountUserAchievements"
+        userInviteCodes = "userInviteCodes"
+        decks = "decks"
+        queueEntries = "queueEntries"
+        anyDecks = "anyDecks"
+        projects = "projects"
+        archivedProjects = "archivedProjects"
+        anyProjects = "anyProjects"
+        onboardingDeck = "onboardingDeck"
+        deckSubscriptions = "deckSubscriptions"
+        roles = "roles"
+        invitations = "invitations"
+        githubIntegration = "githubIntegration"
+        slackIntegration = "slackIntegration"
+        affiliateCodes = "affiliateCodes"
+        activities = "activities"
+        stripeAccountSync = "stripeAccountSync"
+        accountOnboarding = "accountOnboarding"
 
     activeFeatureFlags: str
     activeProjectCount: int
@@ -292,7 +300,7 @@ class Account(_BaseModel):
 
 
 class ActiveTimeTracker(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         createdAt = "createdAt"
@@ -308,7 +316,7 @@ class ActiveTimeTracker(_BaseModel):
 
 
 class Activity(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         card = "card"
         changer = "changer"
         createdAt = "createdAt"
@@ -336,7 +344,7 @@ class Activity(_BaseModel):
 
 
 class AffiliateCodeStat(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         affiliateCode = "affiliateCode"
         month = "month"
         newVisitors = "newVisitors"
@@ -358,7 +366,7 @@ class AffiliateCodeStat(_BaseModel):
 
 
 class AffiliateCode(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         code = "code"
         createdAt = "createdAt"
@@ -372,8 +380,8 @@ class AffiliateCode(_BaseModel):
         validUntil = "validUntil"
         vanityUrl = "vanityUrl"
 
-    class Relations(Enum):
-        stats = ("stats", "Stats")
+    class Relations(FieldEnum):
+        stats = "stats"
 
     account: "Account"
     code: str
@@ -394,7 +402,7 @@ class AffiliateCode(_BaseModel):
 
 
 class AssigneeAssignment(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         assignedBy = "assignedBy"
         assignee = "assignee"
@@ -410,7 +418,7 @@ class AssigneeAssignment(_BaseModel):
 
 
 class AssigneeDeckAssignment(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         assignedBy = "assignedBy"
         assignee = "assignee"
@@ -428,7 +436,7 @@ class AssigneeDeckAssignment(_BaseModel):
 
 
 class Attachment(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         content = "content"
@@ -450,7 +458,7 @@ class Attachment(_BaseModel):
 
 
 class CardDiffNotification(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         asOwner = "asOwner"
         card = "card"
@@ -474,7 +482,7 @@ class CardDiffNotification(_BaseModel):
 
 
 class CardHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         changer = "changer"
@@ -494,7 +502,7 @@ class CardHistory(_BaseModel):
 
 
 class CardOrderInDeck(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         card = "card"
         changer = "changer"
         deck = "deck"
@@ -510,7 +518,7 @@ class CardOrderInDeck(_BaseModel):
 
 
 class CardOrder(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         label = "label"
@@ -526,7 +534,7 @@ class CardOrder(_BaseModel):
 
 
 class CardPreset(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         creator = "creator"
@@ -544,7 +552,7 @@ class CardPreset(_BaseModel):
 
 
 class CardSubscription(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         card = "card"
         createdAt = "createdAt"
         user = "user"
@@ -558,7 +566,7 @@ class CardSubscription(_BaseModel):
 
 
 class CardUpvote(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         createdAt = "createdAt"
@@ -578,7 +586,7 @@ class CardUpvote(_BaseModel):
 
 
 class Card(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         accountSeq = "accountSeq"
         assignee = "assignee"
@@ -612,21 +620,21 @@ class Card(_BaseModel):
         version = "version"
         visibility = "visibility"
 
-    class Relations(Enum):
-        resolvables = ("resolvables", "Resolvables")
-        handCards = ("handCards", "HandCards")
-        timeTrackingSegments = ("timeTrackingSegments", "TimeTrackingSegments")
-        cardSubscriptions = ("cardSubscriptions", "CardSubscriptions")
-        resolvableEntries = ("resolvableEntries", "ResolvableEntries")
-        attachments = ("attachments", "Attachments")
-        diffs = ("diffs", "Diffs")
-        totalTimeTrackingSums = ("totalTimeTrackingSums", "TotalTimeTrackingSums")
-        userTimeTrackingSums = ("userTimeTrackingSums", "UserTimeTrackingSums")
-        childCards = ("childCards", "ChildCards")
-        inDeps = ("inDeps", "InDeps")
-        outDeps = ("outDeps", "OutDeps")
-        cardReferences = ("cardReferences", "CardReferences")
-        upvotes = ("upvotes", "Upvotes")
+    class Relations(FieldEnum):
+        resolvables = "resolvables"
+        handCards = "handCards"
+        timeTrackingSegments = "timeTrackingSegments"
+        cardSubscriptions = "cardSubscriptions"
+        resolvableEntries = "resolvableEntries"
+        attachments = "attachments"
+        diffs = "diffs"
+        totalTimeTrackingSums = "totalTimeTrackingSums"
+        userTimeTrackingSums = "userTimeTrackingSums"
+        childCards = "childCards"
+        inDeps = "inDeps"
+        outDeps = "outDeps"
+        cardReferences = "cardReferences"
+        upvotes = "upvotes"
 
     account: "Account"
     accountSeq: str
@@ -680,7 +688,7 @@ class Card(_BaseModel):
 
 
 class CardsEffortHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         cardCount = "cardCount"
         date = "date"
         effortSum = "effortSum"
@@ -694,7 +702,7 @@ class CardsEffortHistory(_BaseModel):
 
 
 class CardsFinishedHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         assignee = "assignee"
         cardCount = "cardCount"
         date = "date"
@@ -710,7 +718,7 @@ class CardsFinishedHistory(_BaseModel):
 
 
 class CardsStatusHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         count = "count"
         date = "date"
         status = "status"
@@ -724,7 +732,7 @@ class CardsStatusHistory(_BaseModel):
 
 
 class CardsTimeToFinished(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         assignee = "assignee"
         card = "card"
         doneAt = "doneAt"
@@ -742,7 +750,7 @@ class CardsTimeToFinished(_BaseModel):
 
 
 class DailyDiscordGuildVoteMembership(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         discordGuild = "discordGuild"
         membershipCount = "membershipCount"
         t = "t"
@@ -756,7 +764,7 @@ class DailyDiscordGuildVoteMembership(_BaseModel):
 
 
 class DailyPublicProjectMembership(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         membershipCount = "membershipCount"
         project = "project"
         t = "t"
@@ -770,7 +778,7 @@ class DailyPublicProjectMembership(_BaseModel):
 
 
 class PublicProjectVisit(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         project = "project"
         t = "t"
         topReferrers = "topReferrers"
@@ -786,7 +794,7 @@ class PublicProjectVisit(_BaseModel):
 
 
 class DeckAssignment(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         deck = "deck"
         lastAssignedAt = "lastAssignedAt"
@@ -802,7 +810,7 @@ class DeckAssignment(_BaseModel):
 
 
 class DeckOrder(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         deck = "deck"
         project = "project"
         sortIndex = "sortIndex"
@@ -818,7 +826,7 @@ class DeckOrder(_BaseModel):
 
 
 class DeckPublicOrder(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         deck = "deck"
         project = "project"
         sortIndex = "sortIndex"
@@ -832,7 +840,7 @@ class DeckPublicOrder(_BaseModel):
 
 
 class DeckSubscription(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         deck = "deck"
         user = "user"
 
@@ -844,7 +852,7 @@ class DeckSubscription(_BaseModel):
 
 
 class Deck(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         accountSeq = "accountSeq"
         content = "content"
@@ -865,11 +873,11 @@ class Deck(_BaseModel):
         stickyDefaultProjectTag = "stickyDefaultProjectTag"
         title = "title"
 
-    class Relations(Enum):
-        cards = ("cards", "Cards")
-        workflowItems = ("workflowItems", "WorkflowItems")
-        cardOrderInDecks = ("cardOrderInDecks", "CardOrderInDecks")
-        activities = ("activities", "Activities")
+    class Relations(FieldEnum):
+        cards = "cards"
+        workflowItems = "workflowItems"
+        cardOrderInDecks = "cardOrderInDecks"
+        activities = "activities"
 
     account: "Account"
     accountSeq: int
@@ -900,7 +908,7 @@ class Deck(_BaseModel):
 
 
 class DiscordGuild(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         discordGuildId = "discordGuildId"
@@ -912,14 +920,11 @@ class DiscordGuild(_BaseModel):
         removeCommandRoleId = "removeCommandRoleId"
         scope = "scope"
 
-    class Relations(Enum):
-        slashCommands = ("slashCommands", "SlashCommands")
-        projectNotifications = ("projectNotifications", "ProjectNotifications")
-        dailyDiscordGuildVoteMemberships = (
-            "dailyDiscordGuildVoteMemberships",
-            "DailyDiscordGuildVoteMemberships",
-        )
-        members = ("members", "Members")
+    class Relations(FieldEnum):
+        slashCommands = "slashCommands"
+        projectNotifications = "projectNotifications"
+        dailyDiscordGuildVoteMemberships = "dailyDiscordGuildVoteMemberships"
+        members = "members"
 
     account: "Account"
     createdAt: datetime.datetime
@@ -941,7 +946,7 @@ class DiscordGuild(_BaseModel):
 
 
 class DiscordMember(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         avatar = "avatar"
         createdAt = "createdAt"
         deckyScore = "deckyScore"
@@ -965,7 +970,7 @@ class DiscordMember(_BaseModel):
 
 
 class DiscordProjectNotification(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         createdAt = "createdAt"
         disabledTypes = "disabledTypes"
         discordChannelId = "discordChannelId"
@@ -983,7 +988,7 @@ class DiscordProjectNotification(_BaseModel):
 
 
 class DiscordSlashCommand(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         autoAddRoleToThread = "autoAddRoleToThread"
         channelId = "channelId"
         deck = "deck"
@@ -1017,7 +1022,7 @@ class DiscordSlashCommand(_BaseModel):
 
 
 class DueCard(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         createdAt = "createdAt"
@@ -1033,7 +1038,7 @@ class DueCard(_BaseModel):
 
 
 class File(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         deletedAt = "deletedAt"
@@ -1063,7 +1068,7 @@ class File(_BaseModel):
 
 
 class HandCard(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         sortIndex = "sortIndex"
@@ -1079,7 +1084,7 @@ class HandCard(_BaseModel):
 
 
 class Integration(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         creator = "creator"
@@ -1103,7 +1108,7 @@ class Integration(_BaseModel):
 
 
 class Invoice(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         chargeData = "chargeData"
         charged = "charged"
@@ -1127,7 +1132,7 @@ class Invoice(_BaseModel):
 
 
 class LastSeenCardUpvote(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         lastSeenAt = "lastSeenAt"
@@ -1143,7 +1148,7 @@ class LastSeenCardUpvote(_BaseModel):
 
 
 class MilestoneProgress(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         milestone = "milestone"
         progress = "progress"
 
@@ -1155,7 +1160,7 @@ class MilestoneProgress(_BaseModel):
 
 
 class MilestoneProject(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         milestone = "milestone"
         project = "project"
@@ -1169,7 +1174,7 @@ class MilestoneProject(_BaseModel):
 
 
 class Milestone(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         accountSeq = "accountSeq"
         color = "color"
@@ -1184,11 +1189,11 @@ class Milestone(_BaseModel):
         name = "name"
         stats = "stats"
 
-    class Relations(Enum):
-        milestoneProjects = ("milestoneProjects", "MilestoneProjects")
-        cards = ("cards", "Cards")
-        activities = ("activities", "Activities")
-        progress = ("progress", "Progress")
+    class Relations(FieldEnum):
+        milestoneProjects = "milestoneProjects"
+        cards = "cards"
+        activities = "activities"
+        progress = "progress"
 
     account: "Account"
     accountSeq: int
@@ -1213,7 +1218,7 @@ class Milestone(_BaseModel):
 
 
 class ProjectOrder(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         project = "project"
         sortIndex = "sortIndex"
@@ -1229,7 +1234,7 @@ class ProjectOrder(_BaseModel):
 
 
 class ProjectSelection(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         project = "project"
         user = "user"
@@ -1243,7 +1248,7 @@ class ProjectSelection(_BaseModel):
 
 
 class ProjectTag(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         color = "color"
         createdAt = "createdAt"
         emoji = "emoji"
@@ -1261,7 +1266,7 @@ class ProjectTag(_BaseModel):
 
 
 class ProjectUserSetting(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         project = "project"
         receivePublicProjectDigest = "receivePublicProjectDigest"
         user = "user"
@@ -1275,7 +1280,7 @@ class ProjectUserSetting(_BaseModel):
 
 
 class ProjectUser(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         project = "project"
         projectRole = "projectRole"
@@ -1291,7 +1296,7 @@ class ProjectUser(_BaseModel):
 
 
 class Project(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         accountSeq = "accountSeq"
         allowUpvotes = "allowUpvotes"
@@ -1315,26 +1320,20 @@ class Project(_BaseModel):
         publicTileFile = "publicTileFile"
         visibility = "visibility"
 
-    class Relations(Enum):
-        decks = ("decks", "Decks")
-        deckPublicOrders = ("deckPublicOrders", "DeckPublicOrders")
-        milestoneProjects = ("milestoneProjects", "MilestoneProjects")
-        publicProjectVisits = ("publicProjectVisits", "PublicProjectVisits")
-        dailyPublicProjectMembership = (
-            "dailyPublicProjectMembership",
-            "DailyPublicProjectMembership",
-        )
-        publicProjectMemberships = (
-            "publicProjectMemberships",
-            "PublicProjectMemberships",
-        )
-        cardUpvotes = ("cardUpvotes", "CardUpvotes")
-        cards = ("cards", "Cards")
-        tags = ("tags", "Tags")
-        activities = ("activities", "Activities")
-        explicitProjectUsers = ("explicitProjectUsers", "ExplicitProjectUsers")
-        access = ("access", "Access")
-        publicProjectInfo = ("publicProjectInfo", "PublicProjectInfo")
+    class Relations(FieldEnum):
+        decks = "decks"
+        deckPublicOrders = "deckPublicOrders"
+        milestoneProjects = "milestoneProjects"
+        publicProjectVisits = "publicProjectVisits"
+        dailyPublicProjectMembership = "dailyPublicProjectMembership"
+        publicProjectMemberships = "publicProjectMemberships"
+        cardUpvotes = "cardUpvotes"
+        cards = "cards"
+        tags = "tags"
+        activities = "activities"
+        explicitProjectUsers = "explicitProjectUsers"
+        access = "access"
+        publicProjectInfo = "publicProjectInfo"
 
     account: "Account"
     accountSeq: int
@@ -1377,7 +1376,7 @@ class Project(_BaseModel):
 
 
 class PublicProjectInfo(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         activities7d = "activities7d"
         cardCount = "cardCount"
@@ -1399,7 +1398,7 @@ class PublicProjectInfo(_BaseModel):
 
 
 class PublicProjectMembership(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         createdAt = "createdAt"
         digestFrequencyInDays = "digestFrequencyInDays"
         project = "project"
@@ -1415,7 +1414,7 @@ class PublicProjectMembership(_BaseModel):
 
 
 class QueueEntry(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         cardDoneAt = "cardDoneAt"
@@ -1437,7 +1436,7 @@ class QueueEntry(_BaseModel):
 
 
 class QueueSelection(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         queueUser = "queueUser"
         sortIndex = "sortIndex"
@@ -1453,7 +1452,7 @@ class QueueSelection(_BaseModel):
 
 
 class Release(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         content = "content"
         createdAt = "createdAt"
         isLive = "isLive"
@@ -1471,7 +1470,7 @@ class Release(_BaseModel):
 
 
 class ResolvableEntryHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         author = "author"
         content = "content"
         lastChangedAt = "lastChangedAt"
@@ -1489,7 +1488,7 @@ class ResolvableEntryHistory(_BaseModel):
 
 
 class ResolvableEntry(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         author = "author"
         content = "content"
         createdAt = "createdAt"
@@ -1498,8 +1497,8 @@ class ResolvableEntry(_BaseModel):
         resolvable = "resolvable"
         version = "version"
 
-    class Relations(Enum):
-        histories = ("histories", "Histories")
+    class Relations(FieldEnum):
+        histories = "histories"
 
     author: "User"
     content: str
@@ -1515,7 +1514,7 @@ class ResolvableEntry(_BaseModel):
 
 
 class ResolvableNotification(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         isLastParticipant = "isLastParticipant"
@@ -1549,7 +1548,7 @@ class ResolvableNotification(_BaseModel):
 
 
 class ResolvableParticipantHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         addedBy = "addedBy"
         done = "done"
         firstJoinedAt = "firstJoinedAt"
@@ -1571,7 +1570,7 @@ class ResolvableParticipantHistory(_BaseModel):
 
 
 class ResolvableParticipant(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         addedBy = "addedBy"
         discordUserId = "discordUserId"
@@ -1595,7 +1594,7 @@ class ResolvableParticipant(_BaseModel):
 
 
 class Resolvable(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         card = "card"
         closedAt = "closedAt"
@@ -1607,10 +1606,10 @@ class Resolvable(_BaseModel):
         isClosed = "isClosed"
         isPublic = "isPublic"
 
-    class Relations(Enum):
-        participants = ("participants", "Participants")
-        participantHistories = ("participantHistories", "ParticipantHistories")
-        entries = ("entries", "Entries")
+    class Relations(FieldEnum):
+        participants = "participants"
+        participantHistories = "participantHistories"
+        entries = "entries"
 
     account: "Account"
     card: "Card"
@@ -1631,7 +1630,7 @@ class Resolvable(_BaseModel):
 
 
 class SavedSearch(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         forceOr = "forceOr"
         owner = "owner"
@@ -1647,7 +1646,7 @@ class SavedSearch(_BaseModel):
 
 
 class StripeAccountSync(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         billingCycleEnd = "billingCycleEnd"
         billingCycleStart = "billingCycleStart"
@@ -1689,7 +1688,7 @@ class StripeAccountSync(_BaseModel):
 
 
 class TimeTrackingSegment(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         addedManually = "addedManually"
         card = "card"
@@ -1713,7 +1712,7 @@ class TimeTrackingSegment(_BaseModel):
 
 
 class TimeTrackingSum(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         card = "card"
         runningModifyDurationMsBy = "runningModifyDurationMsBy"
         runningStartedAt = "runningStartedAt"
@@ -1731,7 +1730,7 @@ class TimeTrackingSum(_BaseModel):
 
 
 class UserDismissedHint(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         createdAt = "createdAt"
         hintKey = "hintKey"
         returnAt = "returnAt"
@@ -1747,7 +1746,7 @@ class UserDismissedHint(_BaseModel):
 
 
 class UserEmail(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         createdAt = "createdAt"
         email = "email"
         isPrimary = "isPrimary"
@@ -1765,7 +1764,7 @@ class UserEmail(_BaseModel):
 
 
 class UserInvitation(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         accessToProjectIds = "accessToProjectIds"
         account = "account"
         createdAt = "createdAt"
@@ -1785,7 +1784,7 @@ class UserInvitation(_BaseModel):
 
 
 class UserInviteCode(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         accessToProjectIds = "accessToProjectIds"
         account = "account"
         createdAt = "createdAt"
@@ -1811,7 +1810,7 @@ class UserInviteCode(_BaseModel):
 
 
 class UserOnboarding(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         steps = "steps"
         user = "user"
 
@@ -1823,7 +1822,7 @@ class UserOnboarding(_BaseModel):
 
 
 class UserProjectAccess(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         project = "project"
         projectRole = "projectRole"
         role = "role"
@@ -1839,7 +1838,7 @@ class UserProjectAccess(_BaseModel):
 
 
 class UserTag(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         tag = "tag"
@@ -1855,7 +1854,7 @@ class UserTag(_BaseModel):
 
 
 class User(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         autoMeFilterCardLimit = "autoMeFilterCardLimit"
         cdxRole = "cdxRole"
         createdAt = "createdAt"
@@ -1875,34 +1874,34 @@ class User(_BaseModel):
         wantsDailyDigestMail = "wantsDailyDigestMail"
         wantsNewsletter = "wantsNewsletter"
 
-    class Relations(Enum):
-        deckOrders = ("deckOrders", "DeckOrders")
-        projectOrders = ("projectOrders", "ProjectOrders")
-        projectSelections = ("projectSelections", "ProjectSelections")
-        queueSelections = ("queueSelections", "QueueSelections")
-        accountRoles = ("accountRoles", "AccountRoles")
-        cardDiffNotifications = ("cardDiffNotifications", "CardDiffNotifications")
-        resolvableNotifications = ("resolvableNotifications", "ResolvableNotifications")
-        publicProjectMembership = ("publicProjectMembership", "PublicProjectMembership")
-        lastSeenCardUpvotes = ("lastSeenCardUpvotes", "LastSeenCardUpvotes")
-        dueCards = ("dueCards", "DueCards")
-        savedSearches = ("savedSearches", "SavedSearches")
-        activities = ("activities", "Activities")
-        emails = ("emails", "Emails")
-        tags = ("tags", "Tags")
-        unverifiedEmails = ("unverifiedEmails", "UnverifiedEmails")
-        primaryEmail = ("primaryEmail", "PrimaryEmail")
-        pinnedMilestone = ("pinnedMilestone", "PinnedMilestone")
-        explicitProjectAccess = ("explicitProjectAccess", "ExplicitProjectAccess")
-        withProjectAccess = ("withProjectAccess", "WithProjectAccess")
-        projectSettings = ("projectSettings", "ProjectSettings")
-        accountSettings = ("accountSettings", "AccountSettings")
-        dismissedHints = ("dismissedHints", "DismissedHints")
-        slackIntegrations = ("slackIntegrations", "SlackIntegrations")
-        activeTimeTracker = ("activeTimeTracker", "ActiveTimeTracker")
-        participations = ("participations", "Participations")
-        upvotes = ("upvotes", "Upvotes")
-        userOnboarding = ("userOnboarding", "UserOnboarding")
+    class Relations(FieldEnum):
+        deckOrders = "deckOrders"
+        projectOrders = "projectOrders"
+        projectSelections = "projectSelections"
+        queueSelections = "queueSelections"
+        accountRoles = "accountRoles"
+        cardDiffNotifications = "cardDiffNotifications"
+        resolvableNotifications = "resolvableNotifications"
+        publicProjectMembership = "publicProjectMembership"
+        lastSeenCardUpvotes = "lastSeenCardUpvotes"
+        dueCards = "dueCards"
+        savedSearches = "savedSearches"
+        activities = "activities"
+        emails = "emails"
+        tags = "tags"
+        unverifiedEmails = "unverifiedEmails"
+        primaryEmail = "primaryEmail"
+        pinnedMilestone = "pinnedMilestone"
+        explicitProjectAccess = "explicitProjectAccess"
+        withProjectAccess = "withProjectAccess"
+        projectSettings = "projectSettings"
+        accountSettings = "accountSettings"
+        dismissedHints = "dismissedHints"
+        slackIntegrations = "slackIntegrations"
+        activeTimeTracker = "activeTimeTracker"
+        participations = "participations"
+        upvotes = "upvotes"
+        userOnboarding = "userOnboarding"
 
     autoMeFilterCardLimit: int
     cdxRole: str
@@ -1955,7 +1954,7 @@ class User(_BaseModel):
 
 
 class UserReportEmail(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         email = "email"
@@ -1973,7 +1972,7 @@ class UserReportEmail(_BaseModel):
 
 
 class UserReportSetting(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         deckMapping = "deckMapping"
@@ -1982,8 +1981,8 @@ class UserReportSetting(_BaseModel):
         name = "name"
         prioMapping = "prioMapping"
 
-    class Relations(Enum):
-        reportTokens = ("reportTokens", "ReportTokens")
+    class Relations(FieldEnum):
+        reportTokens = "reportTokens"
 
     account: "Account"
     createdAt: datetime.datetime
@@ -1999,7 +1998,7 @@ class UserReportSetting(_BaseModel):
 
 
 class UserReportToken(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         createdAt = "createdAt"
         enabled = "enabled"
         label = "label"
@@ -2017,7 +2016,7 @@ class UserReportToken(_BaseModel):
 
 
 class Wizard(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         createdAt = "createdAt"
         currentStep = "currentStep"
@@ -2037,7 +2036,7 @@ class Wizard(_BaseModel):
 
 
 class WorkflowItemHistory(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         changer = "changer"
         diff = "diff"
@@ -2055,7 +2054,7 @@ class WorkflowItemHistory(_BaseModel):
 
 
 class WorkflowItem(_BaseModel):
-    class Fields(Enum):
+    class Fields(FieldEnum):
         account = "account"
         accountSeq = "accountSeq"
         assignee = "assignee"
@@ -2077,10 +2076,10 @@ class WorkflowItem(_BaseModel):
         version = "version"
         visibility = "visibility"
 
-    class Relations(Enum):
-        diffs = ("diffs", "Diffs")
-        inDeps = ("inDeps", "InDeps")
-        outDeps = ("outDeps", "OutDeps")
+    class Relations(FieldEnum):
+        diffs = "diffs"
+        inDeps = "inDeps"
+        outDeps = "outDeps"
 
     account: "Account"
     accountSeq: str
