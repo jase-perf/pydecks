@@ -15,8 +15,6 @@ class FieldEnum(Enum):
 
     def __repr__(self):
         return self.value
-
-
 """
 CODECKS_API_REFERENCE_URL = "https://manual.codecks.io/api-reference/"
 api_reference_html = requests.get(CODECKS_API_REFERENCE_URL).text
@@ -38,7 +36,7 @@ def get_type(type_name: str):
         return "str"
     if type_name == "unknown":
         return "Any"
-    return f"'{type_name[0].upper() + type_name[1:]}'"
+    return f'"{type_name[0].upper() + type_name[1:]}"'
 
 
 def create_classes_string() -> str:
@@ -59,7 +57,7 @@ def create_classes_string() -> str:
             )
             for content in contents:
                 name, value = content.children
-                first_part += f"        {name.text} = '{(name.text)}'\n"
+                first_part += f'        {name.text} = "{(name.text)}"\n'
                 second_part += f"    {name.text}: {get_type(value.text)}\n"
             first_part += "\n"
         this_section += first_part + second_part
