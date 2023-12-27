@@ -82,14 +82,15 @@ class _BaseModel(ABC):
                     model_name = get_classname_from_hint(self.__class__, key[:-2])
                     setattr(self, key[:-2], model_cache.get(model_name, value))
             elif isinstance(value, list):
+                setattr(self, key, [])
                 for item in value:
                     if is_valid_uuid(item):
                         model_name = get_classname_from_hint(self.__class__, key)
-                        setattr(self, key, model_cache.get(model_name, item))
+                        getattr(self, key).append(model_cache.get(model_name, item))
                     elif isinstance(item, str):
-                        setattr(self, key, optional_datetime(item))
+                        getattr(self, key).append(optional_datetime(item))
                     else:
-                        setattr(self, key, item)
+                        getattr(self, key).append(item)
             elif is_valid_uuid(str(value)):
                 model_name = get_classname_from_hint(self.__class__, key)
                 setattr(self, key, model_cache.get(model_name, value))

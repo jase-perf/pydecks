@@ -113,10 +113,12 @@ class Codecks:
     def parse_response(self, data: dict) -> Dict[str, _BaseModel]:
         results = {}
         for model_name, model_datas in data.items():
-            results[model_name] = {}
+            results[model_name] = []
             if model_name == "_root":
                 results[model_name] = model_cache.get(model_name, "_root", model_datas)
             else:
                 for id, item_data in model_datas.items():
-                    results[model_name][id] = model_cache.get(model_name, id, item_data)
+                    results[model_name].append(
+                        model_cache.get(model_name, id, item_data)
+                    )
         return results

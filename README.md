@@ -23,6 +23,7 @@ This is particularly helpful for References, which in turn include their own nes
 - [ ] Add more documentation and examples.
 - [ ] Find way to simplify the interface.
 - [ ] Get access to the real JSON schema and use that to generate the models instead of parsing the API documentation.
+- [ ] Make the response into an object that has properties for all of the different types, which could help with intellisense for the exptected types of the response.
 
 ## Example Usage
 
@@ -52,9 +53,13 @@ codecks = Codecks(subdomain = "mysubdomain") # API Token can be set with env var
 result = codecks.run_query(q)
 ```
 
-This will return a response in the same format as the API would normally return, except that all ID links will be replaced with the actual objects. For example, the assignee field will be a User object instead of a string ID.
+This will return a response in the same format as the API would normally return, except that all ID links will be replaced with the actual objects. For example, the assignee field will be a User object instead of a string ID. 
 
-## Questions
+In the above example, the response will be a list of Card objects, each of which will have a list of Attachment objects, each of which will have a File object. All of those objects are linked to each other, so you can access the file object directly from the card like this:
+For example, to get the filename of the first attachment on the first card, you can do this:
 
-- Would it be better to convert the response into lists for each category, rather than dictionaries with ID as the key? That would make it easier to iterate through them.
+`result["card"][0].attachments[0].file.name`
+
+
+Additionally, instead of returns a dict of dicts for each object returned, the response will be a dict of lists, which will make it easier to iterate through them.
 
