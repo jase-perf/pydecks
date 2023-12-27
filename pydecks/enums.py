@@ -3,10 +3,10 @@ from enum import Enum
 
 class _PrintableEnum(Enum):
     def __str__(self):
-        return self.value
+        return self.__repr__()
 
     def __repr__(self):
-        return self.value
+        return str(self.value.value)
 
 
 class Operator(_PrintableEnum):

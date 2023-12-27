@@ -90,7 +90,7 @@ class _BaseModel(ABC):
                         setattr(self, key, optional_datetime(item))
                     else:
                         setattr(self, key, item)
-            elif is_valid_uuid(value):
+            elif is_valid_uuid(str(value)):
                 model_name = get_classname_from_hint(self.__class__, key)
                 setattr(self, key, model_cache.get(model_name, value))
             elif isinstance(value, str):

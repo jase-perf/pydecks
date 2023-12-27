@@ -24,12 +24,16 @@ class Query:
     ):
         self._relname = unpascalize(relname.__name__)
         self._filter = filter or {}
-        self._fields = [field.value for field in fields] if fields else []
+        self._fields = fields or []
         self._relations = relations or {}
 
     @property
     def filter_json(self):
         return json.dumps(self._filter) if self._filter else ""
+
+    @property
+    def fields(self):
+        return [str(field) for field in self._fields]
 
     @property
     def relations(self):
@@ -40,13 +44,13 @@ class Query:
                 if self._relations[rel]._filter
                 else f"{rel}"
             )
-            value = self._relations[rel]._fields + self._relations[rel].relations
+            value = self._relations[rel].all_fields
             relations.append({key: value})
         return relations
 
     @property
     def all_fields(self):
-        return self._fields + self.relations
+        return self.fields + self.relations
 
     def __repr__(self):
         return f"{self._relname}({self.filter_json}): {self.all_fields}"
@@ -103,7 +107,7 @@ class Codecks:
 
     def is_in_account(self, query: Query) -> bool:
         return any(
-            (f"{query._relname}s" == member.value for member in Account.Relations)
+            (f"{query._relname}s" == str(member) for member in Account.Relations)
         )
 
     def parse_response(self, data: dict) -> Dict[str, _BaseModel]:
